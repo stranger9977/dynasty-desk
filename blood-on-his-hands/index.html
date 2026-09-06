@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#101114">
+<title>BSPN League Insider — Blood on His Hands</title>
+<style>
+  :root {
+    --chrome: #101114;
+    --brand: #cf0a0a;
+    --brand-dark: #a30808;
+    --paper: #f4f4f2;
+    --card: #ffffff;
+    --ink: #16181c;
+    --ink-2: #4b4f56;
+    --muted: #7d828a;
+    --line: #e3e2de;
+    --line-soft: #efeeea;
+    --up: #157f3d;
+    --up-tint: #e4f2e9;
+    --down: #c2410c;
+    --down-tint: #fbece3;
+    --bar: #a4d2b3;
+    --bar-track: #eceae5;
+    --tick: #4b4f56;
+    --gold: #b98a00;
+    --gold-tint: #fdf3d7;
+  }
+  body { background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif; line-height: 1.45; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 16px 56px; }
+
+  /* ── network chrome ─────────────────────────── */
+  .topbar { background: var(--chrome); color: #fff; }
+  .topbar-inner { max-width: 1060px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 18px; }
+  .logo { font-size: 26px; font-weight: 900; font-style: italic; letter-spacing: -0.03em; }
+  .logo span { color: var(--brand); }
+  .nav { display: flex; gap: 16px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #c9ccd1; flex-wrap: wrap; }
+  .nav .active { color: #fff; border-bottom: 2px solid var(--brand); padding-bottom: 2px; }
+  .breaking { background: var(--brand); color: #fff; }
+  .breaking-inner { max-width: 1060px; margin: 0 auto; padding: 7px 16px; display: flex; gap: 12px; align-items: baseline; font-size: 12.5px; }
+  .breaking b { flex: none; font-style: italic; font-weight: 900; letter-spacing: 0.06em; }
+
+  /* ── article ────────────────────────────────── */
+  .lede { margin-top: 26px; }
+  .layout { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 28px; margin-top: 26px; }
+  .kicker { color: var(--brand); font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+  h1.headline { font-size: clamp(40px, 7vw, 64px); line-height: 0.98; font-weight: 900; font-style: italic; letter-spacing: -0.03em; text-transform: uppercase; margin: 8px 0 10px; }
+  h1.headline .drip { color: var(--brand); }
+  .dek { font-size: 17px; color: var(--ink-2); max-width: 62ch; }
+  .byline { display: flex; gap: 10px; align-items: center; margin: 14px 0 4px; font-size: 12.5px; color: var(--muted); flex-wrap: wrap; }
+  .byline .live { color: var(--brand); font-weight: 800; }
+  .byline .live::before { content: "●"; margin-right: 5px; animation: blink 1.4s infinite; }
+  @keyframes blink { 50% { opacity: 0.25; } }
+  @media (prefers-reduced-motion: reduce) { .byline .live::before { animation: none; } }
+
+  .correction { max-width: 68ch; margin: 16px 0 4px; border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 6px; background: var(--card); padding: 9px 14px; font-size: 12.5px; color: var(--ink-2); }
+  .correction b { color: var(--gold); font-style: italic; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; font-size: 11px; margin-right: 6px; }
+  article p { margin: 14px 0; font-size: 15.5px; max-width: 68ch; }
+  article p b { font-weight: 700; }
+  .chatlog { max-width: 46ch; margin: 18px 0; }
+  .chatlog .chatmeta { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+  .chatlog .bubble { background: #e9e9eb; color: #111; border-radius: 18px; border-bottom-left-radius: 5px; padding: 9px 14px; font-size: 14.5px; line-height: 1.35; width: fit-content; }
+  .chatlog .attachment { margin-top: 5px; background: #e9e9eb; color: #6b6f76; border-radius: 18px; border-bottom-left-radius: 5px; padding: 8px 14px; font-size: 12px; font-style: italic; width: fit-content; }
+  .chatlog .chatnote { font-size: 11px; color: var(--muted); margin-top: 6px; }
+  .pullquote { border-left: 4px solid var(--brand); margin: 20px 0; padding: 4px 0 4px 16px; font-size: 19px; font-weight: 700; font-style: italic; color: var(--ink); max-width: 54ch; }
+  .pullquote small { display: block; font-size: 12px; font-weight: 600; font-style: normal; color: var(--muted); margin-top: 6px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* ── hero graphic ───────────────────────────── */
+  .graphic { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 24px 0; }
+  .graphic-head { background: var(--chrome); color: #fff; padding: 12px 18px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .graphic-head .gtitle { font-weight: 900; font-style: italic; font-size: 16px; letter-spacing: 0.02em; text-transform: uppercase; }
+  .graphic-head .gtitle span { color: var(--brand); }
+  .graphic-head .gsub { font-size: 11.5px; color: #b9bdc4; }
+  .graphic-body { padding: 14px 18px 12px; }
+
+  .callouts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+  .callout { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+  .callout .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .callout .who { font-size: 14px; font-weight: 800; }
+  .callout .what { font-size: 11.5px; color: var(--ink-2); }
+  .callout .what .pos { color: var(--up); font-weight: 700; }
+  .callout .what .neg { color: var(--down); font-weight: 700; }
+
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  thead th { font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-align: right; padding: 0 8px 7px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  thead th.rank, thead th.team, thead th.playoffs { text-align: left; }
+  tbody td { padding: 6px 8px; border-bottom: 1px solid var(--line-soft); font-size: 13px; text-align: right; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr.perp { background: var(--gold-tint); box-shadow: inset 3px 0 0 var(--gold); }
+  tbody tr.victim { background: #fdf5f2; box-shadow: inset 3px 0 0 var(--down); }
+  td.rank { text-align: left; color: var(--muted); font-size: 12px; width: 58px; }
+  td.rank b { color: var(--ink); font-size: 13.5px; font-weight: 800; margin-right: 5px; }
+  td.team { text-align: left; font-weight: 700; font-size: 13px; }
+  .tag { display: inline-block; margin-left: 7px; padding: 1px 6px; border-radius: 3px; font-size: 9px; font-weight: 800; letter-spacing: 0.06em; vertical-align: 1px; }
+  .tag.perp { color: var(--gold); background: #fff; border: 1px solid var(--gold); }
+  .tag.victim { color: var(--down); background: #fff; border: 1px solid var(--down); }
+  .move { font-size: 10.5px; font-weight: 800; }
+  .move.up { color: var(--up); } .move.down { color: var(--down); } .move.hold { color: var(--muted); font-weight: 500; }
+  .barwrap { display: flex; align-items: center; gap: 8px; }
+  .bar { position: relative; width: 110px; height: 8px; border-radius: 4px; background: var(--bar-track); flex: none; }
+  .bar .fill { position: absolute; inset: 0 auto 0 0; border-radius: 4px; background: var(--bar); }
+  .bar .was { position: absolute; top: -3px; bottom: -3px; width: 2px; border-radius: 1px; background: var(--tick); opacity: 0.55; }
+  .val { font-weight: 800; font-size: 13px; min-width: 36px; }
+  .delta { display: inline-block; min-width: 32px; margin-left: 6px; padding: 1px 5px; border-radius: 99px; font-size: 10.5px; font-weight: 800; text-align: center; }
+  .delta.pos { color: var(--up); background: var(--up-tint); }
+  .delta.neg { color: var(--down); background: var(--down-tint); }
+  .delta.noise { color: var(--muted); background: transparent; font-weight: 500; }
+  .graphic-foot { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 18px 12px; color: var(--muted); font-size: 10.5px; border-top: 1px solid var(--line-soft); }
+  .tickdemo { display: inline-block; width: 2px; height: 9px; background: var(--tick); opacity: 0.55; border-radius: 1px; vertical-align: -1px; margin-right: 4px; }
+
+  /* ── evidence cards ─────────────────────────── */
+  h2.section { font-size: 22px; font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: -0.01em; margin: 34px 0 4px; }
+  h2.section span { color: var(--brand); }
+  .section-sub { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .exhibit { background: var(--card); border: 1px solid var(--line); border-radius: 10px; margin: 14px 0; overflow: hidden; }
+  .exhibit-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--line-soft); flex-wrap: wrap; }
+  .exhibit-head .exno { color: var(--brand); font-weight: 900; font-style: italic; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .exhibit-head .exname { font-weight: 800; font-size: 16px; }
+  .exhibit-head .exdate { color: var(--muted); font-size: 12px; margin-left: auto; }
+  .exhibit-body { display: grid; grid-template-columns: 1fr 1fr; }
+  .side { padding: 12px 16px; }
+  .side + .side { border-left: 1px solid var(--line-soft); }
+  .side .sidelabel { font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .side .sidelabel.gets { color: var(--gold); }
+  .side .sidelabel.gives { color: var(--ink-2); }
+  .asset { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; padding: 3px 0; }
+  .asset .pos-team { color: var(--muted); font-size: 12px; }
+  .exhibit-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 9px 16px; background: #faf9f7; border-top: 1px solid var(--line-soft); font-size: 12.5px; flex-wrap: wrap; }
+  .exhibit-foot .quip { color: var(--ink-2); font-style: italic; }
+  .damage { flex: none; font-weight: 800; font-size: 12px; color: var(--down); background: var(--down-tint); border-radius: 99px; padding: 3px 10px; }
+  .damage.neutral { color: var(--ink-2); background: var(--line-soft); }
+  .filmroom { padding: 10px 16px 12px; border-top: 1px dashed var(--line); font-size: 13px; color: var(--ink-2); }
+  .filmroom b.frlabel { color: var(--brand); font-style: italic; font-weight: 900; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; margin-right: 6px; }
+  a.cite { color: #0668b3; text-decoration: none; border-bottom: 1px dotted #0668b3; }
+  a.cite:hover, a.cite:focus { border-bottom-style: solid; outline: none; }
+
+  .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .research-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  .research-card .rc-head { font-weight: 800; font-size: 14px; margin-bottom: 5px; }
+  .research-card .rc-head span { color: var(--brand); font-style: italic; font-weight: 900; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 3px; }
+  .research-card p { font-size: 12.5px; margin: 0 0 6px; color: var(--ink-2); }
+  .research-card .rc-verdict { font-size: 12px; font-weight: 700; color: var(--ink); background: var(--line-soft); border-radius: 6px; padding: 6px 9px; margin-top: 8px; }
+
+  /* ── around the league / rail ───────────────── */
+  .miniwire { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 4px 16px; margin: 14px 0; }
+  .wire-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line-soft); font-size: 13.5px; }
+  .wire-item:last-child { border-bottom: none; }
+  .wire-item .wdate { flex: none; color: var(--muted); font-size: 11.5px; width: 46px; padding-top: 2px; }
+
+  .rail { display: flex; flex-direction: column; gap: 18px; }
+  .railbox { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .railbox .rhead { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 14px; border-bottom: 2px solid var(--brand); }
+  .headline-list { padding: 4px 14px; }
+  .headline-list .hl { padding: 9px 0; border-bottom: 1px solid var(--line-soft); font-size: 13px; font-weight: 600; }
+  .headline-list .hl:last-child { border-bottom: none; }
+  .headline-list .hl small { display: block; font-weight: 400; color: var(--muted); font-size: 11.5px; margin-top: 1px; }
+
+  .ad { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--card); }
+  .ad .adlabel { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 5px 12px 0; }
+  .ad-hims .adbody { padding: 12px 16px 16px; background: linear-gradient(160deg, #f5efe6, #efe4d3); }
+  .ad-hims .adbrand { font-size: 26px; font-weight: 300; letter-spacing: 0.02em; color: #3a2e1f; }
+  .ad-hims .adhead { font-size: 15px; font-weight: 800; color: #3a2e1f; margin: 8px 0 4px; }
+  .ad-hims .adcopy { font-size: 12.5px; color: #6b5b44; }
+  .ad-hims .adbtn { display: inline-block; margin-top: 10px; background: #3a2e1f; color: #f5efe6; font-size: 11.5px; font-weight: 700; padding: 7px 14px; border-radius: 99px; }
+  .ad-dude .adbody { padding: 12px 16px 16px; background: #111; }
+  .ad-dude .adbrand { font-size: 22px; font-weight: 900; font-style: italic; color: #fff; letter-spacing: -0.01em; }
+  .ad-dude .adbrand span { color: #f7c948; }
+  .ad-dude .adhead { font-size: 15px; font-weight: 800; color: #f7c948; margin: 8px 0 4px; }
+  .ad-dude .adcopy { font-size: 12.5px; color: #c9ccd1; }
+  .ad-dude .adbtn { display: inline-block; margin-top: 10px; background: #f7c948; color: #111; font-size: 11.5px; font-weight: 800; padding: 7px 14px; border-radius: 4px; }
+
+  .bannerad { margin: 24px 0; }
+  .bannerad .adlabel { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  .bannerad .adbody { border-radius: 10px; background: #111; color: #fff; padding: 14px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .bannerad .adbrand { font-size: 20px; font-weight: 900; font-style: italic; }
+  .bannerad .adbrand span { color: #f7c948; }
+  .bannerad .adcopy { font-size: 13px; color: #c9ccd1; flex: 1; min-width: 220px; }
+
+  footer.site { margin-top: 40px; border-top: 1px solid var(--line); padding-top: 14px; color: var(--muted); font-size: 11px; max-width: 80ch; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .callouts { grid-template-columns: 1fr; }
+    .exhibit-body { grid-template-columns: 1fr; }
+    .side + .side { border-left: none; border-top: 1px solid var(--line-soft); }
+    .tablewrap { overflow-x: auto; }
+  }
+
+  /* ── phone ──────────────────────────────────── */
+  @media (max-width: 760px) {
+    .layout { grid-template-columns: 1fr; }
+    .callouts { grid-template-columns: 1fr; }
+    .exhibit-body { grid-template-columns: 1fr; }
+    .side + .side { border-left: 0; border-top: 1px solid var(--line-soft); }
+    article p, .prov { font-size: 17px; line-height: 1.6; }
+    .dek { font-size: 16px; }
+    .byline, .correction, .draftnote { font-size: 14px; }
+    .nav { font-size: 12px; }
+    .breaking-inner { font-size: 13px; }
+    .callout .eyebrow, .graphic-head .gsub, .graphic-foot { font-size: 12px; }
+    .callout .what { font-size: 13px; }
+    .callout .who { font-size: 16px; }
+    thead th { font-size: 12px; }
+    tbody td, td.rank, td.team { font-size: 14px; }
+    .chatlog .attachment, .chatlog .chatnote, .chatlog .chatmeta { font-size: 12.5px; }
+    .pullquote small, .tag { font-size: 11px; }
+    .exhibit-head .exdate, .exhibit-head .exno, .side .sidelabel { font-size: 12px; }
+    .section-sub { font-size: 14px; }
+    .topbar-inner { gap: 8px 14px; padding: 9px 16px; flex-wrap: wrap; }
+    .logo { font-size: 22px; }
+    .nav { gap: 12px; letter-spacing: 0.05em; }
+  }
+
+  .draftnote { max-width: 68ch; margin: 16px 0 4px; border: 1px solid var(--gold);
+    border-left: 5px solid var(--gold); border-radius: 6px; background: var(--gold-tint);
+    padding: 10px 14px; font-size: 13px; color: var(--ink); }
+  .draftnote b { color: var(--gold); font-style: italic; font-weight: 900;
+    letter-spacing: 0.08em; text-transform: uppercase; font-size: 11px; margin-right: 6px; }
+  .prov { max-width: 68ch; margin: 16px 0; font-size: 13px; color: var(--muted); }
+  .backlink { display: inline-block; margin: 18px 0 0; font-size: 12px; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); text-decoration: none; }
+  .backlink:hover { text-decoration: underline; }
+  .wrap.solo { max-width: 820px; }
+  .apx table { margin-top: 4px; }
+  .apx thead th { text-align: left; }
+  .apx tbody td { text-align: left; }
+  .scroller { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .scroller:focus { outline: 2px solid var(--brand); outline-offset: 3px; }
+  .swipe { font-size: 11px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 6px; }
+  pre { background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+    padding: 12px 14px; overflow-x: auto; font-size: 12.5px; line-height: 1.55; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em;
+    background: #ececea; border-radius: 3px; padding: 0.06em 0.32em; }
+  pre code { background: none; padding: 0; }
+  .apx h3 { font-size: 17px; font-weight: 900; margin: 26px 0 6px; }
+  .apx ul { max-width: 68ch; font-size: 14.5px; color: var(--ink-2); }
+  .apx li { margin-bottom: 7px; }
+  .frontcard { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 18px 20px; margin: 14px 0; display: block; text-decoration: none; color: inherit; }
+  .frontcard:hover { border-color: var(--brand); }
+  .frontcard .fk { color: var(--brand); font-size: 11.5px; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase; }
+  .frontcard h2 { font-size: clamp(24px, 4.5vw, 34px); font-weight: 900; font-style: italic;
+    text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.02; margin: 6px 0 8px; }
+  .frontcard h2 span { color: var(--brand); }
+  .frontcard p { font-size: 15px; color: var(--ink-2); margin: 0 0 8px; max-width: 62ch; }
+  .frontcard .meta { font-size: 12px; color: var(--muted); }
+  .flag { display: inline-block; margin-left: 8px; padding: 1px 7px; border-radius: 3px;
+    border: 1px solid var(--gold); color: var(--gold); background: #fff;
+    font-size: 10px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; }
+</style>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="/dynasty-desk/" class="logo" style="text-decoration:none;color:inherit">BSP<span>N</span></a>
+    <nav class="nav">
+      <span class="active">League Insider</span><span>Standings</span><span>Trade Wire</span><span>Rumors</span><span>Shame Index</span>
+    </nav>
+  </div>
+</div>
+<div class="breaking">
+  <div class="breaking-inner"><b>BREAKING</b><span>bryansquared completes THIRD trade in 14 days — Kittle, Jonathan Taylor and James Cook pried from zhyman before Monday lunch · zhyman playoff odds down 22 points by noon</span></div>
+</div>
+
+<div class="wrap">
+  <article class="lede">
+        <div class="kicker">BSPN League Insider Investigation · Make it (dy)Nasty</div>
+        <h1 class="headline">Blood on his <span class="drip">hands</span></h1>
+        <p class="dek">Three trades in fourteen days. A 24-point playoff surge. And every single manager who answered the phone got worse. A BSPN League Insider investigation into the bryansquared rampage.</p>
+        <div class="byline">
+          <span class="live">Reporting Live</span>
+          <span>By the League Insider Desk</span>
+          <span>·</span>
+          <span>Updated July 20, 2026, 11:53 AM ET — minutes after the third body dropped</span>
+        </div>
+
+        <div class="correction"><b>Correction · July 20</b> An earlier version of this story reported that DD00GZ lost the No. 1 seed "without making a single move." DD00GZ did in fact make a move, trading David Montgomery and a 2028 3rd to GKrebs for Jordan Addison on July 13. BSPN regrets the error. DD00GZ's day, per an earlier statement, remains ruined.</div>
+
+        <p>Good evening. We begin tonight in the Make it (dy)Nasty dynasty league, where our investigative desk has spent two weeks following the money, and folks — the money leads one place. On July 6, <b>bryansquared</b> was the 9-seed at 42% to make the playoffs. Tonight he is the <b>4-seed at 66%</b>, he owns the best first-round-bye odds in the league at 34%, and the league office is missing three rosters' worth of talent.</p>
+
+        <p>Here is the part that should keep the other eleven of you up at night: he didn't get hot. He didn't hit on a waiver claim. He made <b>three trades in fourteen days</b> — and his three trade partners lost a combined <b>35 points of playoff odds</b> while he pocketed 24 of them. ljwestwood, down 10. brochillington, down 3. And this morning at 11:53 AM, while zhyman was presumably on his third meeting of the workday, the man walked out of his roster with George Kittle, Jonathan Taylor, AND James Cook. zhyman: down 22 points before noon. That is not trade activity. That is a redistribution of wealth with a group chat attached.</p>
+
+        <p>But every wildfire has an ignition point, and our timeline puts patient zero on <b>July 13</b> — when brochillington, two weeks before training camp, publicly challenged this league's commitment to roster management. He did it the way all great commissioners of chaos do: with a photograph of the only member of his household maintaining a professional offseason routine.</p>
+
+        <div class="chatlog">
+          <div class="chatmeta">The group chat · July 13 · entered into evidence</div>
+          <div class="bubble">We got one week until training camp and this is the league</div>
+          <div class="attachment">📎 Attached: 1 photo — a sleeping child, in a crib, demonstrating better roster discipline than ten franchises</div>
+          <div class="chatnote">BSPN fact-check: training camps open July 28, which was fifteen days away, not one. The desk has elected to let it slide. The man lit the match — the math was decorative.</div>
+        </div>
+
+        <p>What happened next is a matter of public record: <b>three trades cleared the wire that same day.</b> Five within the week. The league went from group-chat silence to a full-scale arms race in a single afternoon, and the manager who profited most from the stampede wasn't the man who started it — brochillington himself got fleeced 48 hours later (see Exhibit B). No, the man who profited was already waiting by the phone.</p>
+
+        <div class="pullquote">
+          "It ruined my day."
+          <small>— DD00GZ, after seeing the transaction</small>
+        </div>
+
+        <p>Consider the tempo here. Monday night, he turns two wideouts into Malik Nabers. Wednesday, at 8:44 in the morning — a time when normal people are negotiating with a toaster — he buys Rome Odunze and pays with his own 2028 first-rounder, which is either supreme confidence or a cry for help, and his odds say it wasn't a cry for help. Then this Monday happened. The numbers below are sworn testimony.</p>
+
+        <p>And one more thing before the evidence table, because our desk found it at 2 AM and hasn't slept since: this didn't start in July. Back on <b>May 14</b>, bryansquared quietly acquired Brian Thomas Jr. and Oronde Gadsden II from CharmCity20. Both of those players were later shipped out as ammunition in the July trades. That's not activity, folks. That's <b>premeditation</b>. He wasn't building a roster in May — he was loading the weapon.</p>
+  </article>
+
+      <!-- ══════════ HERO GRAPHIC ══════════ -->
+      <div class="graphic">
+        <div class="graphic-head">
+          <div class="gtitle">The 14-Day <span>Damage Report</span></div>
+          <div class="gsub">Playoff odds, July 6 → July 20, 2026 · league playoff simulations · error margin ±2.0%</div>
+        </div>
+        <div class="graphic-body">
+          <div class="callouts">
+            <div class="callout">
+              <div class="eyebrow">The Perpetrator</div>
+              <div class="who">bryansquared</div>
+              <div class="what">Rank 9 → 4 · playoff odds <span class="pos">▲24</span> · 3 trades</div>
+            </div>
+            <div class="callout">
+              <div class="eyebrow">The Victims — Combined</div>
+              <div class="who">ljwestwood · brochillington · zhyman</div>
+              <div class="what"><span class="neg">▼35</span> playoff pts among his 3 trade partners</div>
+            </div>
+            <div class="callout">
+              <div class="eyebrow">Collateral Damage</div>
+              <div class="who">DD00GZ</div>
+              <div class="what">Lost the No. 1 seed anyway — see Correction</div>
+            </div>
+          </div>
+          <div class="tablewrap">
+            <table id="odds">
+              <thead>
+                <tr>
+                  <th class="rank">Rank</th>
+                  <th class="team">Team</th>
+                  <th class="playoffs">Make Playoffs</th>
+                  <th>1st Rd Bye</th>
+                  <th>Semis</th>
+                  <th>Finals</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="graphic-foot">
+          <span><span class="tickdemo"></span>= odds on July 6 &nbsp;·&nbsp; ▲/▼ = change in percentage points &nbsp;·&nbsp; gray = within ±2% error margin</span>
+          <span>Traded with bryansquared this window: marked in red</span>
+        </div>
+      </div>
+
+  <div class="layout">
+    <main>
+      <!-- ══════════ THE EVIDENCE ══════════ -->
+      <h2 class="section">The <span>Paper Trail</span></h2>
+      <div class="section-sub">Four transactions, pulled from the league's Sleeper ledger — three from the window, plus one from May that reads very differently in hindsight. The league office confirms all four are, regrettably, legal.</div>
+
+      <div class="exhibit">
+        <div class="exhibit-head">
+          <span class="exno">Exhibit Zero</span>
+          <span class="exname">The Groundwork</span>
+          <span class="exdate">May 14, 4:21 PM · w/ CharmCity20</span>
+        </div>
+        <div class="exhibit-body">
+          <div class="side">
+            <div class="sidelabel gets">bryansquared receives</div>
+            <div class="asset"><span>Brian Thomas Jr.</span><span class="pos-team">WR · JAX · 23</span></div>
+            <div class="asset"><span>Oronde Gadsden II</span><span class="pos-team">TE · LAC · 23</span></div>
+            <div class="asset"><span>2026 4th-round pick</span><span class="pos-team">his own, back</span></div>
+          </div>
+          <div class="side">
+            <div class="sidelabel gives">CharmCity20 receives</div>
+            <div class="asset"><span>DeVonta Smith</span><span class="pos-team">WR · PHI · 27</span></div>
+            <div class="asset"><span>Michael Wilson</span><span class="pos-team">WR · ARI · 26</span></div>
+            <div class="asset"><span>2026 3rd-round pick</span><span class="pos-team">his own, back</span></div>
+          </div>
+        </div>
+        <div class="exhibit-foot">
+          <span class="quip">Both players bryansquared acquired here were flipped in the July trades. Detectives call this "establishing a pattern."</span>
+          <span class="damage neutral">Entered into evidence · May 14</span>
+        </div>
+        <div class="filmroom"><b class="frlabel">Film Room</b> The average peak wide receiver season lands at <a class="cite" href="https://apexfantasyleagues.com/peak-age-for-nfl-wide-receiver/">age 26.95</a>. Smith (27) was sold at the exact top of the curve; Thomas and Gadsden (both 23) were bought on the ramp. That's not luck — that's a man who reads <a class="cite" href="https://www.pff.com/news/fantasy-football-metrics-that-matter-aging-curves-by-position">aging-curve research</a> and then does crimes with it.</div>
+      </div>
+
+      <div class="exhibit">
+        <div class="exhibit-head">
+          <span class="exno">Exhibit A</span>
+          <span class="exname">The Monday Night Consolidation</span>
+          <span class="exdate">July 13, 9:14 PM · w/ ljwestwood</span>
+        </div>
+        <div class="exhibit-body">
+          <div class="side">
+            <div class="sidelabel gets">bryansquared receives</div>
+            <div class="asset"><span>Malik Nabers</span><span class="pos-team">WR · NYG</span></div>
+          </div>
+          <div class="side">
+            <div class="sidelabel gives">ljwestwood receives</div>
+            <div class="asset"><span>Brian Thomas Jr.</span><span class="pos-team">WR · JAX</span></div>
+            <div class="asset"><span>Ladd McConkey</span><span class="pos-team">WR · LAC</span></div>
+          </div>
+        </div>
+        <div class="exhibit-foot">
+          <span class="quip">Two wideouts for one — and somehow the man who got two is the one who called our tip line. ljwestwood is the only other double-digit faller on the board.</span>
+          <span class="damage">ljwestwood playoffs 54% → 44% ▼10</span>
+        </div>
+        <div class="filmroom"><b class="frlabel">Film Room</b> This is the textbook <a class="cite" href="https://www.fantasypoints.com/nfl/articles/2026/ffpc-dynasty-strategy-cutdown-trades">consolidation premium</a>: four quarters don't equal a dollar, and market data from <a class="cite" href="https://rosteraudit.com/trade-calculator/">thousands of real Sleeper trades</a> shows managers consistently pay extra to turn two good players into one great one — because the side with the best player usually wins. Nabers is 22; the average WR peak season arrives at <a class="cite" href="https://apexfantasyleagues.com/peak-age-for-nfl-wide-receiver/">~27</a>. bryansquared bought the entire ramp. The sim agrees: westwood got MORE players and LESS future.</div>
+      </div>
+
+      <div class="exhibit">
+        <div class="exhibit-head">
+          <span class="exno">Exhibit B</span>
+          <span class="exname">The Morning Withdrawal</span>
+          <span class="exdate">July 15, 8:44 AM · w/ brochillington</span>
+        </div>
+        <div class="exhibit-body">
+          <div class="side">
+            <div class="sidelabel gets">bryansquared receives</div>
+            <div class="asset"><span>Rome Odunze</span><span class="pos-team">WR · CHI</span></div>
+            <div class="asset"><span>Kenneth Gainwell</span><span class="pos-team">RB · TB</span></div>
+          </div>
+          <div class="side">
+            <div class="sidelabel gives">brochillington receives</div>
+            <div class="asset"><span>Tank Bigsby</span><span class="pos-team">RB · PHI</span></div>
+            <div class="asset"><span>2027 3rd-round pick</span><span class="pos-team">via BSQ</span></div>
+            <div class="asset"><span>2028 1st-round pick</span><span class="pos-team">via BSQ</span></div>
+          </div>
+        </div>
+        <div class="exhibit-foot">
+          <span class="quip">He shipped his own 2028 FIRST at 8:44 in the morning. Full disclosure: brochillington operates this newsroom, which is why this caption was written through tears.</span>
+          <span class="damage">brochillington playoffs 15% ▼3 · and Odunze is gone</span>
+        </div>
+        <div class="filmroom"><b class="frlabel">Film Room</b> The research cuts both ways here. Behavioral economists Massey &amp; Thaler's <a class="cite" href="https://faculty.wharton.upenn.edu/wp-content/uploads/2013/08/massey---thaler---losers-curse---management-science-july-2013.pdf">"Loser's Curse"</a> (Management Science, 2013) found decision-makers systematically overvalue draft picks relative to proven production, and <a class="cite" href="https://www.fantasypros.com/2026/02/dynasty-rookie-draft-pick-trade-strategy-fantasy-football/">dynasty research</a> shows future picks already trade at a discount. Translation: bryansquared sold lottery tickets at sticker price for an age-24 WR entering his <a class="cite" href="https://apexfantasyleagues.com/peak-age-for-nfl-wide-receiver/">peak window</a> — and if he contends, that 2028 1st lands in the late-round range whose surplus value the paper says everyone overpays for. The rebuilding side of this trade is defensible too. The rebuilding side would also like Odunze back.</div>
+      </div>
+
+      <div class="exhibit">
+        <div class="exhibit-head">
+          <span class="exno">Exhibit C</span>
+          <span class="exname">The Monday Morning Massacre</span>
+          <span class="exdate">July 20, 11:53 AM · w/ zhyman</span>
+        </div>
+        <div class="exhibit-body">
+          <div class="side">
+            <div class="sidelabel gets">bryansquared receives</div>
+            <div class="asset"><span>Jonathan Taylor</span><span class="pos-team">RB · IND</span></div>
+            <div class="asset"><span>James Cook</span><span class="pos-team">RB · BUF</span></div>
+            <div class="asset"><span>George Kittle</span><span class="pos-team">TE · SF</span></div>
+          </div>
+          <div class="side">
+            <div class="sidelabel gives">zhyman receives</div>
+            <div class="asset"><span>Kyren Williams</span><span class="pos-team">RB · LAR</span></div>
+            <div class="asset"><span>Blake Corum</span><span class="pos-team">RB · LAR</span></div>
+            <div class="asset"><span>Cam Skattebo</span><span class="pos-team">RB · NYG</span></div>
+            <div class="asset"><span>Isaiah Likely</span><span class="pos-team">TE · NYG</span></div>
+            <div class="asset"><span>Oronde Gadsden II</span><span class="pos-team">TE · LAC</span></div>
+          </div>
+        </div>
+        <div class="exhibit-foot">
+          <span class="quip">Five players is not a return package, it's a memorial service. zhyman went from 7th to 10th before his lunch break.</span>
+          <span class="damage">zhyman playoffs 54% → 32% ▼22</span>
+        </div>
+        <div class="filmroom"><b class="frlabel">Film Room</b> Here's where the research raises an eyebrow at OUR guy. Running backs decline <a class="cite" href="https://www.fantasypros.com/2021/07/at-what-age-do-running-backs-decline-2021-fantasy-football/">16.8% in PPR points per game from age 26 to 27</a> — Taylor is 27, Cook is 26. And the graceful-aging tight end is <a class="cite" href="https://apexfantasyleagues.com/peak-age-nfl-tight-end/">mostly a myth</a>: strip out the generational outliers and TE production falls off drastically after 31. Kittle is 32. bryansquared bought the back half of three <a class="cite" href="https://www.pff.com/news/fantasy-football-metrics-that-matter-aging-curves-by-position">aging curves</a> at consolidation prices — this is a one-or-two-year all-in, and the <a class="cite" href="https://sites.northwestern.edu/nusportsanalytics/2020/12/29/the-nfl-running-back-age-cliff/">RB age cliff</a> does not take meetings. Meanwhile zhyman walks away with five players age 26 or younger, which is exactly what a teardown should buy.</div>
+      </div>
+
+      <div class="bannerad">
+        <div class="adlabel">Advertisement</div>
+        <div class="adbody">
+          <div class="adbrand">DUDE <span>WIPES</span></div>
+          <div class="adcopy"><b>Somebody call cleanup.</b> When a trade leaves a mess this big, paper towels won't cut it. DUDE WIPES — the official post-trade cleanup partner of the Make it (dy)Nasty league. Extra-large. Flushable. Strong enough for a fourteen-day rampage.</div>
+        </div>
+      </div>
+
+      <h2 class="section">Other <span>Notables</span></h2>
+      <div class="section-sub">The stories that would lead this newsletter in any two-week window that didn't contain a crime spree.</div>
+
+      <article>
+        <p><b>The champ is wobbling.</b> CharmCity20 — the two-time former champion, the man with the hardware, the reason half this league has trust issues — has slid from the 4-seed to the 6-seed, and he can't blame inactivity: he's been party to FIVE trades since the draft. He sold DeVonta Smith and Michael Wilson to bryansquared in May (see Exhibit Zero — yes, the champ armed the gunman), swapped Chris Olave and Keaton Mitchell to mattkendall1 for Zay Flowers and a first, and shipped Travis Kelce out the door for Sam Darnold in June. His bye odds are actually UP four points. Everything else is down. That's not a retool, that's a man rearranging deck furniture at a very confident pace.</p>
+        <p><b>And the quietest man in the league is climbing.</b> itsders — who has not sent a group-chat message since the draft, possibly since the Obama administration — is quietly up two seeds, from 10th to 8th, +5 in playoff odds. His loudest move: a May 29 pick-flip with ljwestwood that netted him TWO extra 2026 firsts. He has never commented on it. He has never commented on anything. Analysts believe he communicates exclusively through the accept-trade button.</p>
+      </article>
+
+      <h2 class="section">The Full <span>Ledger</span></h2>
+      <div class="section-sub">Every other trade since the NFL Draft (April 25, 2026). bryansquared's four are prosecuted above; these are the rest.</div>
+      <div class="miniwire">
+        <div class="wire-item">
+          <span class="wdate">Apr 28</span>
+          <span><b>ChessNerd420</b> acquires bryansquared's 2026 1st from <b>GKrebs</b> for two 2026 2nds. Even before the rampage, the man's picks were circulating like currency.</span>
+        </div>
+        <div class="wire-item">
+          <span class="wdate">May 14</span>
+          <span><b>brochillington</b> acquires Josh Downs (WR, 24) from <b>CharmCity20</b> for a 2026 2nd and 3rd. A responsible, age-appropriate purchase. Remember this newsroom fondly for it.</span>
+        </div>
+        <div class="wire-item">
+          <span class="wdate">May 24</span>
+          <span><b>mattkendall1</b> acquires Chris Olave (WR, 26) and Keaton Mitchell plus a 2026 2nd from <b>CharmCity20</b> for Zay Flowers (WR, 25), a 2026 1st and a 2027 3rd. mattkendall1 is +14 in semifinal odds since — the chat was too busy with the rampage to notice.</span>
+        </div>
+        <div class="wire-item">
+          <span class="wdate">May 29</span>
+          <span><b>GKrebs</b> acquires Amon-Ra St. Brown (WR, 26) and a 2026 3rd from <b>zhyman</b> for a 2027 1st, a 2026 1st and a 2026 2nd. In hindsight: the FIRST body in zhyman's teardown. He was selling at the <a class="cite" href="https://apexfantasyleagues.com/peak-age-for-nfl-wide-receiver/">exact WR peak age</a> two months before bryansquared came calling.</span>
+        </div>
+        <div class="wire-item">
+          <span class="wdate">May 29</span>
+          <span><b>itsders</b> acquires two 2026 1sts (via zhyman and CharmCity20) from <b>ljwestwood</b> for his own 2026 1st and a 2nd. The Silent Climber stockpiles. <a class="cite" href="https://faculty.wharton.upenn.edu/wp-content/uploads/2013/08/massey---thaler---losers-curse---management-science-july-2013.pdf">Massey &amp; Thaler</a> would note that accumulating more, cheaper picks is literally the optimal strategy in the paper. itsders has almost certainly not read the paper. He simply IS the paper.</span>
+        </div>
+        <div class="wire-item">
+          <span class="wdate">May 30</span>
+          <span><b>ljwestwood</b> acquires Najee Harris (RB, 27, currently unemployed) from <b>chrisapplegate</b> for two late picks, following a pair of pick-swaps the night before. An age-27 running back without a team, purchased at midnight, one week after the <a class="cite" href="https://www.fantasypros.com/2021/07/at-what-age-do-running-backs-decline-2021-fantasy-football/">age-27 RB decline research</a> made the rounds. No further questions, Your Honor.</span>
+        </div>
+        <div class="wire-item">
+          <span class="wdate">Jun 7</span>
+          <span><b>DD00GZ</b> acquires Travis Kelce (TE, 36) and Michael Wilson from <b>CharmCity20</b> for Sam Darnold. Research says tight ends fall off a cliff at <a class="cite" href="https://apexfantasyleagues.com/peak-age-nfl-tight-end/">31 unless they're generational</a>. Kelce is 36. This is either an outlier bet or a farewell tour with a roster spot. (DD00GZ also bought rookie TE Josh Cuevas for $40 FAAB on June 1 — the full tight-end experience.)</span>
+        </div>
+        <div class="wire-item">
+          <span class="wdate">Jul 13</span>
+          <span><b>GKrebs</b> acquires David Montgomery (RB, 29) and bryansquared's 2028 3rd from <b>DD00GZ</b> for Jordan Addison (WR, 24). One side bought a WR entering his peak; the other bought an RB two years past <a class="cite" href="https://sites.northwestern.edu/nusportsanalytics/2020/12/29/the-nfl-running-back-age-cliff/">the cliff</a>. The odds table upstairs will tell you which was which.</span>
+        </div>
+        <div class="wire-item">
+          <span class="wdate">Jul 13</span>
+          <span><b>ljwestwood</b> acquires rookie RB Dylan Sampson (21) from <b>mattkendall1</b> for a 2028 4th. A perfectly normal trade. We checked it twice anyway. Force of habit at this point.</span>
+        </div>
+      </div>
+
+      <article>
+        <p>So where does that leave us? chrisapplegate is your new No. 1 seed at 75%, and DD00GZ — who made exactly one measured, responsible trade, Montgomery-for-Addison, the kind you'd bring home to your parents — watched the throne get pulled out from under him like a folding chair anyway. mattkendall1 jumped 14 points in semifinal odds while the chat was busy prosecuting bryansquared — the loudest quiet move of the window, hiding in plain sight. And note the symmetry the board can't hide: there are exactly two double-digit fallers in this league — zhyman (−22) and ljwestwood (−10) — and both of their signatures appear on paperwork with the same counterparty. That's not a trend, that's a common denominator with a jersey.</p>
+        <p>The research verdict, because you asked for journalism: the aging-curve literature says bryansquared consolidated into stars, sold at peaks, bought pre-peak, and paid for it all with the one asset class — <a class="cite" href="https://faculty.wharton.upenn.edu/wp-content/uploads/2013/08/massey---thaler---losers-curse---management-science-july-2013.pdf">draft picks</a> — that peer-reviewed research says people chronically overvalue. He did everything the papers recommend, right up until Monday morning, when he bought a 27-year-old running back, a 26-year-old running back, and a 32-year-old tight end — three assets the <a class="cite" href="https://www.fantasypros.com/2021/07/at-what-age-do-running-backs-decline-2021-fantasy-football/">same literature</a> lists under "sell." Four trades since the draft, one 2028 first-rounder lit on fire, and a lineup of Jonathan Taylor, James Cook, Malik Nabers, Rome Odunze and George Kittle. Is it reckless? The research says eventually. Is it working? Twenty-four points says presently. The window is one, maybe two years wide — and the man built it in fourteen days. He must be butter, folks, because he is ON A ROLL — and the rest of this league is the toast.</p>
+        <p><b>Reporting live from the group chat — BSPN League Insider.</b></p>
+      </article>
+    </main>
+
+    <!-- ══════════ RIGHT RAIL ══════════ -->
+    <aside class="rail">
+      <div class="ad ad-hims">
+        <div class="adlabel">Advertisement</div>
+        <div class="adbody">
+          <div class="adbrand">hims</div>
+          <div class="adhead">Losing your roster is optional. So is losing your hair.</div>
+          <div class="adcopy">Clinically proven treatment for stress-related shedding caused by group chats, trade rumors, and the month of July. Ask your doctor if fantasy football is right for you. It is not.</div>
+          <span class="adbtn">Regrow with confidence →</span>
+        </div>
+      </div>
+
+      <div class="railbox">
+        <div class="rhead">Top Headlines</div>
+        <div class="headline-list">
+          <div class="hl">DD00GZ loses No. 1 seed despite responsible mid-window trade<small>"I did make a move," he clarified. Noted. Corrected. Seed still gone.</small></div>
+          <div class="hl">Two-time former champ CharmCity20 slides to 6th despite five trades since the draft<small>Dynasty status: under review</small></div>
+          <div class="hl">itsders up two seeds; has not spoken since the draft<small>Sources close to itsders unable to confirm he speaks</small></div>
+          <div class="hl">mattkendall1 up 14 pts in semifinal odds while the league watched bryansquared<small>The Olave deal is aging beautifully. Nobody noticed.</small></div>
+          <div class="hl">ChessNerd420, at 4%, declines to rebuild: "Sucking the marrow out of life doesn't mean choking on the bone"<small>He was asked about his playoff odds. He answered with Dead Poets Society. No one followed up.</small></div>
+          <div class="hl">brochillington insists 2028 1st "will be a late one"<small>It will not be a late one</small></div>
+        </div>
+      </div>
+
+      <div class="ad ad-dude">
+        <div class="adlabel">Advertisement</div>
+        <div class="adbody">
+          <div class="adbrand">DUDE <span>WIPES</span></div>
+          <div class="adhead">Somebody's gotta clean this up.</div>
+          <div class="adcopy">Three trades. Fourteen days. Zero remorse. For messes too big for talking it out at the draft party.</div>
+          <span class="adbtn">WIPE RESPONSIBLY</span>
+        </div>
+      </div>
+
+      <div class="railbox">
+        <div class="rhead">Shame Index™</div>
+        <div class="headline-list">
+          <div class="hl">1. zhyman <small>▼22 — answered the phone on a Monday</small></div>
+          <div class="hl">2. ljwestwood <small>▼10 — the only other double-digit faller; got MORE players and still lost</small></div>
+          <div class="hl">3. brochillington <small>▼3 — sold Odunze, kept the receipts, wrote this</small></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="site">
+    BSPN League Insider is a parody newsletter for the Make it (dy)Nasty dynasty fantasy football league and is not affiliated with ESPN, Hims &amp; Hers Health, Dude Products, the NFL, or journalism. All trades sourced from the league's Sleeper transaction log, April 25 – July 20, 2026. Playoff odds from league playoff simulations; error margin ±2.0%. Research citations link to real published work — yes, this newsletter cited Management Science, and no, we will not be apologizing for it. No managers were physically harmed, only emotionally, and one of them wrote this. bryansquared did not respond to requests for comment, presumably because he was making another trade.
+  </footer>
+</div>
+
+<script>
+  // [team, rank_now, rank_then, role, [now, then] × playoffs/bye/semis/finals/title]
+  // role: 'perp' | 'victim' | null — trade involvement with bryansquared, Jul 6–20.
+  // "<1" values entered as 0.5, rendered as "<1%".
+  const rows = [
+    ["chrisapplegate", 1, 2, null,     [75,71],[31,27],[56,51],[31,29],[18,16]],
+    ["DD00GZ",         2, 1, null,     [73,73],[27,28],[45,50],[28,29],[14,17]],
+    ["Lupeeeeeeee",    3, 3, null,     [71,68],[23,22],[48,45],[28,26],[15,13]],
+    ["bryansquared",   4, 9, "perp",   [66,42],[34,14],[56,29],[25,11],[12,5]],
+    ["mattkendall1",   5, 5, null,     [66,61],[25,23],[56,42],[25,20],[10,10]],
+    ["CharmCity20",    6, 4, null,     [61,64],[27,23],[50,54],[26,28],[13,14]],
+    ["GKrebs",         7, 8, null,     [46,46],[9,11],[27,27],[13,13],[6,6]],
+    ["itsders",        8,10, null,     [46,41],[5,8],[17,20],[8,9],[3,4]],
+    ["ljwestwood",     9, 6, "victim", [44,54],[13,15],[29,36],[12,16],[6,7]],
+    ["zhyman",        10, 7, "victim", [32,54],[8,18],[18,36],[7,16],[2,7]],
+    ["brochillington",11,11, "victim", [15,18],[3,4],[7,10],[2,3],[0.5,1]],
+    ["ChessNerd420",  12,12, null,     [4,4],[0.5,0.5],[1,1],[0.5,0.5],[0.5,0.5]],
+  ];
+
+  const pct = v => v === 0.5 ? "&lt;1%" : v + "%";
+  const delta = (now, then) => {
+    const d = Math.round(now - then);
+    if (d === 0) return '<span class="delta noise">—</span>';
+    const arrow = d > 0 ? "▲" : "▼";
+    const cls = Math.abs(d) < 3 ? "noise" : (d > 0 ? "pos" : "neg");
+    return `<span class="delta ${cls}">${arrow}${Math.abs(d)}</span>`;
+  };
+  const move = (now, then) => {
+    const d = then - now;
+    if (d === 0) return '<span class="move hold">—</span>';
+    return d > 0 ? `<span class="move up">▲${d}</span>` : `<span class="move down">▼${-d}</span>`;
+  };
+  const roleTag = role => role === "perp" ? '<span class="tag perp">3 TRADES</span>'
+                    : role === "victim" ? '<span class="tag victim">TRADED W/ B²</span>' : "";
+
+  document.querySelector("#odds tbody").innerHTML = rows.map(([team, rn, rt, role, po, bye, semi, fin, title]) => `
+    <tr class="${role || ""}">
+      <td class="rank"><b>${rn}</b>${move(rn, rt)}</td>
+      <td class="team">${team}${roleTag(role)}</td>
+      <td class="playoffs">
+        <div class="barwrap">
+          <div class="bar">
+            <div class="fill" style="width:${po[0]}%"></div>
+            <div class="was" style="left:calc(${po[1]}% - 1px)"></div>
+          </div>
+          <span class="val">${pct(po[0])}</span>${delta(po[0], po[1])}
+        </div>
+      </td>
+      <td>${pct(bye[0])}${delta(bye[0], bye[1])}</td>
+      <td>${pct(semi[0])}${delta(semi[0], semi[1])}</td>
+      <td>${pct(fin[0])}${delta(fin[0], fin[1])}</td>
+      <td>${pct(title[0])}${delta(title[0], title[1])}</td>
+    </tr>
+  `).join("");
+</script>
+<div class="wrap"><a class="backlink" href="/dynasty-desk/">&larr; Back to the front page</a></div>
