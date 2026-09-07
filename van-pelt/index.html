@@ -214,6 +214,12 @@
   .apx h3 { font-size: 17px; font-weight: 900; margin: 26px 0 6px; }
   .apx ul { max-width: 68ch; font-size: 14.5px; color: var(--ink-2); }
   .apx li { margin-bottom: 7px; }
+  .pdflink { display: inline-block; margin: 0 0 0 18px; font-size: 12px; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); text-decoration: none;
+    border: 1px solid var(--brand); border-radius: 4px; padding: 5px 10px; }
+  .pdflink:hover { background: var(--brand); color: #fff; }
+  .pdflink.solo { margin-left: 0; }
+  .cardfoot { margin: -6px 0 14px; padding-left: 20px; }
   .frontcard { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
     padding: 18px 20px; margin: 14px 0; display: block; text-decoration: none; color: inherit; }
   .frontcard:hover { border-color: var(--brand); }
@@ -251,6 +257,35 @@
     .topbar-inner { gap: 8px 14px; padding: 9px 16px; flex-wrap: wrap; }
     .logo { font-size: 22px; }
     .nav { gap: 12px; letter-spacing: 0.05em; }
+  }
+
+  /* ── print / PDF ────────────────────────────── */
+  @media print {
+    @page { size: Letter; margin: 13mm 11mm; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    html, body { background: #fff; }
+    .backlink, .swipe, .pdflink, .cardfoot { display: none; }
+    .wrap, .wrap.solo { max-width: none; padding: 0 0 8mm; }
+    .topbar-inner, .breaking-inner { max-width: none; }
+    .layout { display: block; }
+    .rail { margin-top: 16px; break-before: page; }
+    .railbox, .exhibit, .graphic, .frontcard, .correction, .draftnote,
+    .pullquote, .chatlog, .callout, tr, .apx h3 + p { break-inside: avoid; }
+    h1.headline { font-size: 32pt; }
+    .dek { font-size: 11.5pt; max-width: none; }
+    article p, .prov { font-size: 10pt; line-height: 1.45; max-width: none; }
+    .byline, .correction, .draftnote { font-size: 8.5pt; }
+    h2.section { font-size: 14pt; break-after: avoid; margin-top: 18px; }
+    .apx h3 { font-size: 11.5pt; break-after: avoid; }
+    .scroller { overflow: visible; }
+    table { font-size: 7pt; table-layout: auto; }
+    thead th, tbody td { white-space: normal; padding: 2.5px 4px;
+      word-break: normal; overflow-wrap: normal; hyphens: none; }
+    thead th { font-size: 6.5pt; letter-spacing: 0.02em; }
+    thead { display: table-header-group; }
+    pre { font-size: 7.5pt; white-space: pre-wrap; word-break: break-word; }
+    .apx ul { font-size: 9pt; max-width: none; }
+    .graphic-foot, .section-sub { font-size: 8pt; }
   }
 </style>
 </head>
@@ -423,7 +458,10 @@ python3 transactions.py   &gt; derived/transactions.md    # plus --json</code></
 <h3>G. Things to check before this goes anywhere</h3>
 <ul><li>The odds site is unnamed. If Nick knows it, name it in A and in the piece.</li><li>The July 20 baseline was transcribed from a screenshot in the July session; that session flagged brochillington's semis/finals cells as hard to read. The piece only uses his playoffs, bye, and semis figures.</li><li>Ages come from Sleeper's player map, projections from Rotowire via Sleeper without the league's TE premium, and pick values are FantasyCalc's generic un-slotted numbers. None of the three value sources is the league's own.</li><li>The Sleeper trending feed (<code>data/trending-add-24h.json</code>) is site-wide, not league-specific, and is not used in the piece.</li></ul>
   </div>
-  <a class="backlink" href="/dynasty-desk/">&larr; Back to the front page</a>
+  <p style="margin-top:26px">
+    <a class="backlink" href="/dynasty-desk/">&larr; Back to the front page</a>
+    <a class="pdflink" href="the-offseason-already-had-a-winner.pdf">Download PDF</a>
+  </p>
 
 </div>
 </body>
